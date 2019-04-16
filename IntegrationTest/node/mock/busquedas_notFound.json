@@ -1,0 +1,9 @@
+{
+  "codigo": "404.area-api.1200",
+  "mensaje": "Recurso no encontrado.",
+  "folio": "22920190117134747236",
+  "info": "https://baz-developer.bancoazteca.com.mx/errors#404.area-api.1200",
+  "detalles": [
+    "identificador no encontrado"
+  ]
+}

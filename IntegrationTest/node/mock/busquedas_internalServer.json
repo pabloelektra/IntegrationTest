@@ -1,0 +1,9 @@
+{
+  "codigo": "500.area-api.1300",
+  "mensaje": "Error interno en servidor.",
+  "folio": "22920190117134747236",
+  "info": "https://baz-developer.bancoazteca.com.mx/errors#500.area-api.1300",
+  "detalles": [
+    "timeout"
+  ]
+}

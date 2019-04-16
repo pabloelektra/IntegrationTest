@@ -1,0 +1,148 @@
+swagger: '2.0'
+info:
+  version: 0.0.1
+  title: API de Ejemplo
+  description: |
+    API de Ejemplo
+host: localhost:8000
+basePath: /ejemplo/v1
+schemes:
+  - http
+paths:
+  /busquedas:
+    get:
+      description: Busquedas de estado por identificador.
+      tags:
+        - Ejemplo
+      parameters:
+        - name: idEstado
+          in: query
+          description: Identificador de estado
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Respuesta'
+          examples:
+            application/json: |-
+              {
+                "codigo": "0",
+                "mensaje": "Operacion Exitosa.",
+                "folio": "17920190131190457365",
+                "estado": {
+                  "idEstado": 6,
+                  "descripcion": "Aguascalientes",
+                  "descripcionCorta": "AGUAS"
+                }
+              }
+        '400':
+          description: Entrada incorrecta
+          schema:
+            $ref: '#/definitions/Error'
+          examples:
+            application/json: |-
+              {
+                "codigo": "400.area-api.1000",
+                "mensaje": "Parametros no validos por favor valide su informacion.",
+                "folio": "22920190117134747236",
+                "info": "https://baz-developer.bancoazteca.com.mx/errors#400.area-api.1000",
+                "detalles": [
+                  "faltan argumentos"
+                ]
+              }
+        '404':
+          description: No encontrado
+          schema:
+            $ref: '#/definitions/Error'
+          examples:
+            application/json: |-
+              {
+                "codigo": "404.area-api.1200",
+                "mensaje": "Recurso no encontrado.",
+                "folio": "22920190117134747236",
+                "info": "https://baz-developer.bancoazteca.com.mx/errors#404.area-api.1200",
+                "detalles": [
+                  "identificador no encontrado"
+                ]
+              }
+        '500':
+          description: Error inesperado
+          schema:
+            $ref: '#/definitions/Error'
+          examples:
+            application/json: |-
+              {
+                "codigo": "500.area-api.1300",
+                "mensaje": "Error interno en servidor.",
+                "folio": "22920190117134747236",
+                "info": "https://baz-developer.bancoazteca.com.mx/errors#500.area-api.1300",
+                "detalles": [
+                  "timeout"
+                ]
+              }
+  
+definitions:
+  Respuesta:
+    type: object
+    properties:
+      codigo:
+        type: string
+        description: Código de la operación
+        example: '0'
+      mensaje:
+        type: string
+        description: Descripción de la operación
+        example: Operacion exitosa
+      folio:
+        type: string
+        description: Número de folio de la operación
+        example: '15720180927175536771'
+      catalogo:
+        type: array
+        description: Informacion del identificador consultado.
+        items:
+          $ref: '#/definitions/estado'
+
+  estado:
+    type: object
+    properties:
+      idEstado:
+        type: integer
+        description: Identificador del estado
+        example: 6
+      descripcion:
+        type: string
+        description: Nombre largo
+        example: 'Aguascalientes'
+      origen:
+        type: string
+        description: Nombre corto
+        example: 'AGUAS'
+
+  Error:
+    type: object
+    properties:
+      codigo:
+        type: string
+        description: Código del error
+        example: 500.area-api.1300
+      mensaje:
+        type: string
+        description: Descripción del error
+        example: Error interno en servidor.
+      folio:
+        type: string
+        description: Número de folio de la operación
+        example: '22920190117134747236'
+      info:
+        type: string
+        description: Rutas de ayuda para atender el error
+        example: >-
+          https://baz-developer.bancoazteca.com.mx/errors#500.area-api.1300
+      detalles:
+        type: array
+        items:
+          type: string
+          example: 'timeout'

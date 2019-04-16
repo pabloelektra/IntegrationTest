@@ -1,0 +1,72 @@
+{
+    "mockDirectory": "../node/mock",
+    "quiet": false,
+    "port": "8000",
+    "latency": 50,
+    "logRequestHeaders": false,
+    "webServices": {
+        "v1/organizations/:apigeeOrg/developers/:apigeeDeveloper/apps/:apigeeApp": {
+            "latency": 10,
+            "verbs": [
+                "get"
+            ],
+            "switch":  [
+                "apigeeOrg",
+                "apigeeDeveloper",
+                "apigeeApp"
+            ],
+            "responses": {
+                "get": {
+                    "httpStatus": 400,
+                    "mockFile": "credenciales_badRequest.json"
+                }
+            },
+            "switchResponses": {
+                "apigeeOrgorgeTestapigeeDeveloperejemploDeveloperapigeeAppejemploApp" : {"httpStatus": 200, "mockFile": "credenciales_ok.json"}
+            }
+        },
+        "oauth2/v1/token": {
+            "latency": 10,
+            "contentType": "application/x-www-form-urlencoded",
+            "headers": {
+                "Authorization": "Basic MXJ0N2J0cEJJcG5aVWdzNVlFTWgyN1A5R0wyWTFSdDg6MTVGTDRtenJXVHFHMnlISg=="
+            },            
+            "verbs": [
+                "post"
+            ],
+            "switch": [
+                "grant_type"
+            ],
+            "responses": {
+                "get": {
+                    "httpStatus": 400,
+                    "mockFile": "autorizacion_badRequest.json"
+                }
+            },
+            "switchResponses": {
+                "grant_typeclient_credentials" : {"httpStatus": 200, "mockFile": "autorizacion_ok.json"}
+            }
+        },
+        "ejemplo/v1/busquedas": {
+            "latency": 10,
+            "verbs": [
+                "get"
+            ],
+            "switch": [
+                "idEstado"
+            ],
+            "responses": {
+                "get": {
+                    "httpStatus": 400,
+                    "mockFile": "busquedas_badRequest.json"
+                }
+            },
+            "switchResponses": {
+                "idEstado6" : {"httpStatus": 200, "mockFile": "busquedas_ok.json"},
+                "idEstadoX" : {"httpStatus": 400, "mockFile": "busquedas_badRequest_2.json"},
+                "idEstado33" : {"httpStatus": 404, "mockFile": "busquedas_notFound.json"},
+                "idEstado2" : {"httpStatus": 500, "mockFile": "busquedas_internalServer.json"}
+            }
+        }
+    }
+}
